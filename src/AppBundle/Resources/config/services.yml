@@ -1,0 +1,3 @@
+services:
+    exercise:
+        class: AppBundle\Services\ExerciseService
