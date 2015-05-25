@@ -13,8 +13,7 @@ class FixtureLoader extends DataFixtureLoader
     protected function getFixtures()
     {
         return  array(
-            __DIR__ . '/exercises.yml',
-
+            __DIR__ . '/fixtures.yml'
         );
     }
 }

@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\User;
 
 /**
  * Exercise
@@ -55,6 +56,13 @@ class Exercise
      * @ORM\Column(name="time", type="time")
      */
     private $time;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="exercises")
+     * @ORM\JoinColumn(nullable=false)
+     * @var User
+     */
+    protected $user;
 
     /**
      * Get id
@@ -179,5 +187,21 @@ class Exercise
     public function getTime()
     {
         return $this->time;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

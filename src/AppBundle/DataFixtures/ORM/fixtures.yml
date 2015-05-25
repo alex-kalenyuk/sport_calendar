@@ -1,3 +1,8 @@
+AppBundle\Entity\User:
+        user{1..5}:
+                username (unique): <userName()>
+                password: <word()>
+
 AppBundle\Entity\Exercise:
         exercise{1..350}:
                 description: <randomElement(array('Exercise1', 'Exercise2', 'Exercise3'))>
@@ -5,3 +10,4 @@ AppBundle\Entity\Exercise:
                 count: <numberBetween(5, 15)>
                 date: <dateTimeBetween('-1 month', 'now')>
                 time: <dateTimeBetween('-1 month', 'now')>
+                user: @user*
