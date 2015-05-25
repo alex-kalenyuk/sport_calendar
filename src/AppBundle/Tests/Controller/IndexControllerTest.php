@@ -2,17 +2,34 @@
 
 namespace AppBundle\Tests\Controller;
 
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class IndexControllerTest extends WebTestCase
 {
-    public function testIndex()
+    /**
+     * @var Client
+     */
+    public $client;
+
+    public function setUp()
     {
-        $client = static::createClient();
+        $this->client = static::createClient();
+    }
 
-        $crawler = $client->request('GET', '/');
+    public function testIndexGuest()
+    {
+        $crawler = $this->client->request('GET', '/');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertTrue($crawler->filter('html:contains("Check what you did in last")')->count() > 0);
+        $this->assertTrue(
+            $this->client->getResponse()->isRedirect()
+        );
+
+        $this->client->followRedirect();
+
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals('/login', $this->client->getRequest()->getRequestUri());
     }
 }
