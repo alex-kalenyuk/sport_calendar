@@ -8,6 +8,7 @@ class ExerciseServiceTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetListByWeeks()
     {
+        $userEntity = $this->getMock('\AppBundle\Entity\User');
         $exerciseRep = $this
             ->getMockBuilder('\Doctrine\ORM\EntityRepository')
             ->disableOriginalConstructor()
@@ -15,9 +16,9 @@ class ExerciseServiceTest extends \PHPUnit_Framework_TestCase
         $exerciseRep->expects($this->exactly(3))
             ->method('findBy')
             ->withConsecutive(
-                [['date' => new \DateTime('2 weeks ago')]],
-                [['date' => new \DateTime('1 week ago')]],
-                [['date' => new \DateTime()]]
+                [['user' => $userEntity, 'date' => new \DateTime('2 weeks ago')]],
+                [['user' => $userEntity, 'date' => new \DateTime('1 week ago')]],
+                [['user' => $userEntity, 'date' => new \DateTime()]]
             )
             ->will($this->returnValue([]));
 
@@ -30,6 +31,6 @@ class ExerciseServiceTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($exerciseRep));
 
         $service = new ExerciseService($entityManager);
-        $this->assertEquals([[], [], []], $service->getListByWeeks());
+        $this->assertEquals([[], [], []], $service->getListByWeeks($userEntity));
     }
 }
