@@ -21,7 +21,7 @@ class IndexControllerTest extends WebTestCase
 
     public function testIndexGuest()
     {
-        $crawler = $this->client->request('GET', '/');
+        $this->client->request('GET', '/');
 
         $this->assertTrue(
             $this->client->getResponse()->isRedirect()
