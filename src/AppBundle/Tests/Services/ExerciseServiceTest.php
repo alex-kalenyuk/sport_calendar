@@ -16,8 +16,8 @@ class ExerciseServiceTest extends \PHPUnit_Framework_TestCase
         $exerciseRep->expects($this->exactly(3))
             ->method('findBy')
             ->withConsecutive(
-                [['user' => $userEntity, 'date' => new \DateTime('2 weeks ago')]],
-                [['user' => $userEntity, 'date' => new \DateTime('1 week ago')]],
+                [['user' => $userEntity, 'date' => new \DateTime(ExerciseService::TWO_WEEKS_AGO)]],
+                [['user' => $userEntity, 'date' => new \DateTime(ExerciseService::WEEK_AGO)]],
                 [['user' => $userEntity, 'date' => new \DateTime()]]
             )
             ->will($this->returnValue([]));
@@ -30,7 +30,12 @@ class ExerciseServiceTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->will($this->returnValue($exerciseRep));
 
+        $expectedResult = [
+            ExerciseService::TWO_WEEKS_AGO => [],
+            ExerciseService::WEEK_AGO => [],
+            ExerciseService::TODAY => []
+        ];
         $service = new ExerciseService($entityManager);
-        $this->assertEquals([[], [], []], $service->getListByWeeks($userEntity));
+        $this->assertEquals($expectedResult, $service->getListByWeeks($userEntity));
     }
 }

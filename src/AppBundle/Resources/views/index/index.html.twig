@@ -14,7 +14,7 @@
         <tr>
             <td>
                 <table>
-                    {% for exercise in exercises[0] %}
+                    {% for exercise in exercises[constant('AppBundle\\Services\\ExerciseService::TWO_WEEKS_AGO')] %}
                         <tr>
                             <td>{{ exercise.description }}</td>
                             <td>{{ exercise.weight }} x {{ exercise.count }}</td>
@@ -24,7 +24,7 @@
             </td>
             <td>
                 <table>
-                    {% for exercise in exercises[1] %}
+                    {% for exercise in exercises[constant('AppBundle\\Services\\ExerciseService::WEEK_AGO')] %}
                         <tr>
                             <td>{{ exercise.description }}</td>
                             <td>{{ exercise.weight }} x {{ exercise.count }}</td>
@@ -34,7 +34,7 @@
             </td>
             <td>
                 <table>
-                    {% for exercise in exercises[2] %}
+                    {% for exercise in exercises[constant('AppBundle\\Services\\ExerciseService::TODAY')] %}
                         <tr>
                             <td>{{ exercise.description }}</td>
                             <td>{{ exercise.weight }} x {{ exercise.count }}</td>
