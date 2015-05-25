@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class IndexController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/{_locale}", name="homepage", requirements={"_locale" = "en|ru"}, defaults={"_locale" = "en"})
      * @Template()
      */
     public function indexAction()

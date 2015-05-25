@@ -1,8 +1,8 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-    <h1>Hi ...!</h1>
-    <p>Check what you did in last 3 trainings</p>
+    <h1>{{ 'Hi %name%!'|trans({'%name%': 'Fabien'}) }}</h1>
+    <p>{{ 'Check what you did in last 3 trainings'|trans }}</p>
 
     {% block content %}{% endblock %}
 
