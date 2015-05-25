@@ -21,10 +21,9 @@ class ExerciseService
     {
         $repository = $this->entityManager->getRepository("AppBundle:Exercise");
         $list = [];
-        $t = $this->currentTime(self::TWO_WEEKS_AGO);
         $list[self::TWO_WEEKS_AGO] = $repository->findBy([
             'user' => $user,
-            'date' => $t
+            'date' => $this->currentTime(self::TWO_WEEKS_AGO)
         ]);
         $list[self::WEEK_AGO] = $repository->findBy([
             'user' => $user,
