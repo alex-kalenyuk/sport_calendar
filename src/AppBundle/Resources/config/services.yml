@@ -1,3 +1,4 @@
 services:
     exercise:
         class: AppBundle\Services\ExerciseService
+        arguments: [ @doctrine.orm.entity_manager ]
