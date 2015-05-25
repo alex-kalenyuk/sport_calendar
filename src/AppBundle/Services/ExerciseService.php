@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManager;
 class ExerciseService
 {
     const TWO_WEEKS_AGO = '2 weeks ago';
-    const WEEK_AGO = '2 weeks ago';
+    const WEEK_AGO = '1 week ago';
     const TODAY = 'today';
 
     private $entityManager;
@@ -21,19 +21,25 @@ class ExerciseService
     {
         $repository = $this->entityManager->getRepository("AppBundle:Exercise");
         $list = [];
+        $t = $this->currentTime(self::TWO_WEEKS_AGO);
         $list[self::TWO_WEEKS_AGO] = $repository->findBy([
             'user' => $user,
-            'date' => new \DateTime(self::TWO_WEEKS_AGO)
+            'date' => $t
         ]);
         $list[self::WEEK_AGO] = $repository->findBy([
             'user' => $user,
-            'date' => new \DateTime(self::WEEK_AGO)
+            'date' => $this->currentTime(self::WEEK_AGO)
         ]);
         $list[self::TODAY] = $repository->findBy([
             'user' => $user,
-            'date' => new \DateTime()
+            'date' => $this->currentTime(self::TODAY)
         ]);
 
         return $list;
+    }
+
+    protected function currentTime($time)
+    {
+        return new \DateTime($time);
     }
 }

@@ -16,9 +16,9 @@ class ExerciseServiceTest extends \PHPUnit_Framework_TestCase
         $exerciseRep->expects($this->exactly(3))
             ->method('findBy')
             ->withConsecutive(
-                [['user' => $userEntity, 'date' => new \DateTime(ExerciseService::TWO_WEEKS_AGO)]],
-                [['user' => $userEntity, 'date' => new \DateTime(ExerciseService::WEEK_AGO)]],
-                [['user' => $userEntity, 'date' => new \DateTime()]]
+                [['user' => $userEntity, 'date' => $this->currentTime(ExerciseService::TWO_WEEKS_AGO)]],
+                [['user' => $userEntity, 'date' => $this->currentTime(ExerciseService::WEEK_AGO)]],
+                [['user' => $userEntity, 'date' => $this->currentTime(ExerciseService::TODAY)]]
             )
             ->will($this->returnValue([]));
 
@@ -35,7 +35,29 @@ class ExerciseServiceTest extends \PHPUnit_Framework_TestCase
             ExerciseService::WEEK_AGO => [],
             ExerciseService::TODAY => []
         ];
-        $service = new ExerciseService($entityManager);
+
+        $service = $this->getMockBuilder('\AppBundle\Services\ExerciseService')
+            ->setConstructorArgs([$entityManager])
+            ->setMethods(array('currentTime'))
+            ->getMock();
+        $service->expects($this->exactly(3))
+            ->method('currentTime')
+            ->will($this->returnValueMap($this->getCurrentTimeArgsMap()));
+
         $this->assertEquals($expectedResult, $service->getListByWeeks($userEntity));
+    }
+
+    protected function getCurrentTimeArgsMap()
+    {
+        return [
+            [ExerciseService::TWO_WEEKS_AGO, $this->currentTime(ExerciseService::TWO_WEEKS_AGO)],
+            [ExerciseService::WEEK_AGO, $this->currentTime(ExerciseService::WEEK_AGO)],
+            [ExerciseService::TODAY, $this->currentTime(ExerciseService::TODAY)],
+        ];
+    }
+
+    protected function currentTime($time = null)
+    {
+        return new \DateTime($time);
     }
 }
