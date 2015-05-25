@@ -14,7 +14,7 @@
         <tr>
             <td>
                 <table>
-                    {% for exercise in exercises|slice(1, 3) %}
+                    {% for exercise in exercises[0] %}
                         <tr>
                             <td>{{ exercise.description }}</td>
                             <td>{{ exercise.weight }} x {{ exercise.count }}</td>
@@ -24,7 +24,7 @@
             </td>
             <td>
                 <table>
-                    {% for exercise in exercises|slice(3, 6) %}
+                    {% for exercise in exercises[1] %}
                         <tr>
                             <td>{{ exercise.description }}</td>
                             <td>{{ exercise.weight }} x {{ exercise.count }}</td>
@@ -34,7 +34,7 @@
             </td>
             <td>
                 <table>
-                    {% for exercise in exercises|slice(6, 9) %}
+                    {% for exercise in exercises[2] %}
                         <tr>
                             <td>{{ exercise.description }}</td>
                             <td>{{ exercise.weight }} x {{ exercise.count }}</td>

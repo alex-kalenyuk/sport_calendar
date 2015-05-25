@@ -12,8 +12,20 @@ class ExerciseService
         $this->entityManager = $entityManager;
     }
 
-    public function getList()
+    public function getListByWeeks()
     {
-        return $this->entityManager->getRepository("AppBundle:Exercise")->findAll();
+        $repository = $this->entityManager->getRepository("AppBundle:Exercise");
+
+        return [
+            $repository->findBy([
+                'date' => new \DateTime('2 weeks ago')
+            ]),
+            $repository->findBy([
+                'date' => new \DateTime('1 week ago')
+            ]),
+            $repository->findBy([
+                'date' => new \DateTime()
+            ])
+        ];
     }
 }

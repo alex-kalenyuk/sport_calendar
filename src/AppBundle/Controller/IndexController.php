@@ -15,7 +15,7 @@ class IndexController extends Controller
     public function indexAction()
     {
         return [
-            'exercises' => $this->get('exercise')->getList()
+            'exercises' => $this->get('exercise')->getListByWeeks()
         ];
     }
 }
