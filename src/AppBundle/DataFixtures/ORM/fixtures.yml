@@ -1,4 +1,5 @@
 AppBundle\Entity\User:
+        # todo: add predefined user hare for comfort testing
         user{1..5}:
                 username (unique): <userName()>
                 password: <word()>

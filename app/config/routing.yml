@@ -1,3 +1,4 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+    # todo: add _locale prefix, requrenments & defaults here. no need to copy paste it in all bundle routes

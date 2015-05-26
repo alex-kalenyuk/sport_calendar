@@ -12,11 +12,13 @@ class ExerciseService
 
     private $entityManager;
 
+    // todo: it's better to your entity repository itself, not entity manager
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
     }
 
+    // todo: docstrings pls
     public function getListByWeeks(User $user)
     {
         $repository = $this->entityManager->getRepository("AppBundle:Exercise");
