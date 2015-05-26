@@ -1,4 +1,5 @@
 services:
     exercise:
         class: AppBundle\Services\ExerciseService
+        # todo: it's better to pass specific repository here for your entity only
         arguments: [ @doctrine.orm.entity_manager ]
